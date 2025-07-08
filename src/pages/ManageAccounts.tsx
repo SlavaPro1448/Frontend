@@ -17,6 +17,8 @@ const ManageAccounts = () => {
   const navigate = useNavigate();
   const { operatorId } = useParams();
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const fetchData = async () => {
     if (!operatorId) return;
     try {
@@ -48,7 +50,7 @@ const ManageAccounts = () => {
   const handleDeleteAccount = async (accountId: string, phoneNumber: string) => {
     try {
       // Сначала logout через Flask API
-      await fetch(`http://localhost:5001/api/logout/${operatorId}?account=${phoneNumber}`, {
+      await fetch(`${apiUrl}/api/logout/${operatorId}?account=${phoneNumber}`, {
         method: 'POST'
       });
       // Затем удаляем аккаунт из Supabase

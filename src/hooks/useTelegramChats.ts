@@ -50,9 +50,10 @@ export const useTelegramChats = (operatorId: string, selectedAccountPhone?: stri
           : accounts;
         if (targetAccounts.length === 0) throw new Error('Выбранный аккаунт не найден');
         const allChats: TelegramChat[] = [];
+        const apiUrl = import.meta.env.VITE_API_URL;
         for (const acc of targetAccounts) {
           // Получаем чаты для каждого аккаунта через Flask API
-          const chatsResp = await fetch(`http://localhost:5001/api/chats/${operatorId}?account=${acc.phone_number}`);
+          const chatsResp = await fetch(`${apiUrl}/api/chats/${operatorId}?account=${acc.phone_number}`);
           const chatsData = await chatsResp.json();
           if (chatsData.error) throw new Error(chatsData.error);
           if (!chatsData.chats) continue;

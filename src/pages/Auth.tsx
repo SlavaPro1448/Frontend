@@ -20,6 +20,7 @@ const Auth = () => {
   const [phoneCodeHash, setPhoneCodeHash] = useState('');
   const navigate = useNavigate();
   const { operatorId, accountId } = useParams();
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const handlePhoneSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,7 +31,7 @@ const Auth = () => {
       const timeoutPromise = new Promise((_, reject) => 
         setTimeout(() => reject(new Error('Таймаут запроса')), 30000)
       );
-      const requestPromise = fetch('http://localhost:5001/api/send_code', {
+      const requestPromise = fetch(`${apiUrl}/api/send_code`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -83,7 +84,7 @@ const Auth = () => {
       const timeoutPromise = new Promise((_, reject) => 
         setTimeout(() => reject(new Error('Таймаут запроса')), 30000)
       );
-      const requestPromise = fetch('http://localhost:5001/api/verify_code', {
+      const requestPromise = fetch(`${apiUrl}/api/verify_code`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -141,7 +142,7 @@ const Auth = () => {
       const timeoutPromise = new Promise((_, reject) => 
         setTimeout(() => reject(new Error('Таймаут запроса')), 30000)
       );
-      const requestPromise = fetch('http://localhost:5001/api/verify_password', {
+      const requestPromise = fetch(`${apiUrl}/api/verify_password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -195,7 +196,7 @@ const Auth = () => {
 
   const handleResendCode = async () => {
     try {
-      const response = await fetch('http://localhost:5001/api/send_code', {
+      const response = await fetch(`${apiUrl}/api/send_code`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

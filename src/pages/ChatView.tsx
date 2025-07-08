@@ -53,8 +53,9 @@ const ChatView = () => {
         throw new Error('Некорректный ID чата');
       }
       setPhoneNumber(phoneFromChatId);
+      const apiUrl = import.meta.env.VITE_API_URL;
       // Запрос сообщений через Flask API
-      const response = await fetch(`http://localhost:5001/api/chat_messages/${operatorId}/${realChatId}?account=${phoneFromChatId}&limit=50`);
+      const response = await fetch(`${apiUrl}/api/chat_messages/${operatorId}/${realChatId}?account=${phoneFromChatId}&limit=50`);
       const data = await response.json();
       if (data.error) {
         throw new Error(data.error);
